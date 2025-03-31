@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>HSF Raffle</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      text-align: center;
+      padding: 2em;
+    }
+    input, button {
+      padding: 0.5em;
+      font-size: 1.2em;
+      margin: 1em;
+    }
+    #success {
+      color: green;
+      font-weight: bold;
+      margin-top: 1em;
+      display: none;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Enter the HSF Raffle</h1>
+  <input type="text" id="nameInput" placeholder="Your name" />
+  <br />
+  <button onclick="submitName()">Submit</button>
+  <div id="success">✅ Successfully entered!</div>
+
+  <script>
+    async function submitName() {
+      const name = document.getElementById('nameInput').value;
+      if (!name) return alert("Please enter a name");
+
+      const response = await fetch('https://YOUR-RENDER-URL/add-name', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ name })
+      });
+
+      if (response.ok) {
+        document.getElementById('nameInput').value = '';
+        document.getElementById('success').style.display = 'block';
+        setTimeout(() => {
+          document.getElementById('success').style.display = 'none';
+        }, 3000);
+      } else {
+        alert("Error submitting name");
+      }
+    }
+  </script>
+
+</body>
+</html>

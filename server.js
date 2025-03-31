@@ -21,6 +21,15 @@ app.post('/add-name', (req, res) => {
   });
 });
 
+app.get('/all-names', (req, res) => {
+  db.all("SELECT name FROM names", [], (err, rows) => {
+    if (err) return res.status(500).send('Error fetching names');
+    const names = rows.map(row => row.name);
+    res.send({ names });
+  });
+});
+
+
 app.get('/random-name', (req, res) => {
   db.all("SELECT name FROM names", [], (err, rows) => {
     if (err) return res.status(500).send('Error fetching names');

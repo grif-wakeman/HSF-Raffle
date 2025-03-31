@@ -39,6 +39,15 @@ app.get('/random-name', (req, res) => {
   });
 });
 
+app.delete('/delete-name', (req, res) => {
+  const { name } = req.body;
+  db.run("DELETE FROM names WHERE name = ?", [name], function(err) {
+    if (err) return res.status(500).send('Error deleting name');
+    res.send({ success: true });
+  });
+});
+
+
 app.listen(port, () => {
   console.log(`HSF-Raffle backend running on port ${port}`);
 });

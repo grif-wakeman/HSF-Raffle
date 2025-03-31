@@ -1,0 +1,14 @@
+{
+  "name": "hsf-raffle",
+  "version": "1.0.0",
+  "description": "Simple backend for HSF-Raffle using Express and SQLite",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.18.2",
+    "sqlite3": "^5.1.6"
+  }
+}

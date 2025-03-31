@@ -35,7 +35,7 @@
       const name = document.getElementById('nameInput').value;
       if (!name) return alert("Please enter a name");
 
-      const response = await fetch('https://YOUR-RENDER-URL/add-name', {
+      const response = await fetch('https://hsf-raffle.onrender.com/add-name', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'

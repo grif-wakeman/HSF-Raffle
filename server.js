@@ -15,9 +15,17 @@ db.serialize(() => {
 
 app.post('/add-name', (req, res) => {
   const { name } = req.body;
-  db.run("INSERT INTO names (name) VALUES (?)", [name], function(err) {
-    if (err) return res.status(500).send('Error saving name');
-    res.send({ success: true });
+
+  // Check for existing name first
+  db.get("SELECT name FROM names WHERE name = ?", [name], (err, row) => {
+    if (err) return res.status(500).send('Error checking name');
+    if (row) return res.status(400).send('Name already submitted');
+
+    // Not found, insert it
+    db.run("INSERT INTO names (name) VALUES (?)", [name], function(err) {
+      if (err) return res.status(500).send('Error saving name');
+      res.send({ success: true });
+    });
   });
 });
 
